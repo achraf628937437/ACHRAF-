@@ -2,125 +2,120 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Love Game 💖</title>
+<title>استطلاع</title>
 
 <style>
-  body {
-    text-align: center;
-    font-family: Arial;
-    background: #ffe6f0;
-    height: 100vh;
-    overflow: hidden;
-  }
+body {
+  text-align: center;
+  font-family: Arial;
+  background: #f4f4f4;
+  padding-top: 50px;
+}
 
-  h1 {
-    color: #ff0066;
-    margin-top: 80px;
-  }
+h1 { font-size: 24px; }
 
-  button {
-    padding: 15px 25px;
-    font-size: 20px;
-    border: none;
-    border-radius: 40px;
-    margin: 10px;
-    cursor: pointer;
-    position: absolute;
-    transition: 0.3s;
-  }
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
 
-  #yes {
-    background: #00cc66;
-    color: white;
-    left: 40%;
-    top: 50%;
-  }
+#result {
+  display: none;
+  margin-top: 20px;
+}
 
-  #no {
-    background: #ff3333;
-    color: white;
-    left: 55%;
-    top: 50%;
-  }
+#result img {
+  width: 200px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
 
-  .heart {
-    position: absolute;
-    color: red;
-    font-size: 20px;
-    animation: float 3s linear infinite;
-  }
+#text {
+  font-size: 20px;
+  margin-top: 10px;
+}
 
-  @keyframes float {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-300px); opacity: 0; }
-  }
+#boom {
+  display: none;
+  font-size: 100px;
+  margin-top: 30px;
+}
 
-  .message {
-    font-size: 40px;
-    color: #ff0066;
-    display: none;
-    margin-top: 50px;
-  }
+#finalText {
+  display: none;
+  font-size: 60px;
+  font-weight: bold;
+  color: #ff0033;
+  text-shadow: 0 0 20px red, 0 0 40px orange;
+}
 </style>
 
 </head>
+
 <body>
 
-<h1 id="question">واش كتحبني؟ 😏</h1>
+<h1>أستاذ لي ما كتحملش؟ 😏</h1>
 
-<button id="yes" onclick="yesClick()">نعم 💖</button>
-<button id="no" onmouseover="moveNo()">لا 😢</button>
+<button onclick="showResult('math')">أستاذ الماط</button>
+<button onclick="showResult('fr')">أستاذ فرونسي</button>
+<button onclick="showResult('social')">أستاذ الاجتماعيات</button>
+<button onclick="showResult('eng')">أستاذ لونكلي</button>
 
-<div class="message" id="msg">Yaaay! 🥰💖 3refti!</div>
+<div id="result">
+  <img id="img">
+  <div id="text"></div>
+</div>
+
+<div id="boom">💥</div>
+<div id="finalText">1BAC-SHF_4 😈</div>
 
 <script>
-let questions = [
-  "واش بصح؟ 😍",
-  "متأكد؟ 🤨",
-  "آخر فرصة! 😏",
-  "قول الحقيقة 😂",
-  "راه غادي نبكي 😭"
-];
+function showResult(type) {
 
-let index = 0;
-let yesSize = 20;
+  let img = "";
+  let text = "";
 
-function yesClick() {
-  yesSize += 5;
-  document.getElementById("yes").style.fontSize = yesSize + "px";
-
-  index++;
-  if (index >= questions.length) {
-    showLove();
-  } else {
-    document.getElementById("question").innerText = questions[index];
+  if (type == "math") {
+    img = "math.jpg";
+    text = "😂 أستاذ الماط: لكراش ديال أسامة ههه";
   }
-}
 
-function moveNo() {
-  let x = Math.random() * (window.innerWidth - 100);
-  let y = Math.random() * (window.innerHeight - 100);
-
-  let noBtn = document.getElementById("no");
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-function showLove() {
-  document.getElementById("msg").style.display = "block";
-
-  for (let i = 0; i < 40; i++) {
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.top = window.innerHeight + "px";
-    heart.style.fontSize = (20 + Math.random() * 30) + "px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 3000);
+  else if (type == "fr") {
+    img = "francais.jpg";
+    text = "😂 أستاذ فرونسي: الجدة كراني ههه";
   }
+
+  else if (type == "social") {
+    img = "social.jpg";
+    text = "😂 أستاذ الاجتماعيات: بلفاع العاصمة… إغتيال… واي عهد النمسة";
+  }
+
+  else if (type == "eng") {
+    img = "english.jpg";
+    text = "😂 أستاذ لونكلي: ازدواز غادي دوز";
+  }
+
+  document.getElementById("img").src = img;
+  document.getElementById("text").innerText = text;
+  document.getElementById("result").style.display = "block";
+
+  document.querySelectorAll("button").forEach(btn => btn.style.display = "none");
+
+  setTimeout(() => {
+    document.getElementById("result").style.display = "none";
+    document.getElementById("boom").style.display = "block";
+  }, 2500);
+
+  setTimeout(() => {
+    document.getElementById("boom").style.display = "none";
+    document.getElementById("finalText").style.display = "block";
+  }, 3500);
 }
 </script>
 
